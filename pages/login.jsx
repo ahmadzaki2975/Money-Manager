@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Login() {
   return (
     <div className="h-screen bg-blue-main text-white px-10">
@@ -21,8 +23,17 @@ export default function Login() {
 
       <div className="btn-cont mt-12 text-center flex flex-col gap-5">
         <div className="w-100 bg-blue-button rounded py-1 shadow-button">Login</div>
+        <div className="flex items-center gap-5 filter brightness-125">
+          <div className="h-[1px] bg-blue-button w-full"></div>
+          <span className="text-blue-button">or</span>
+          <div className="h-[1px] bg-blue-button w-full"></div>
+        </div>
         <div className="w-100 bg-blue-button rounded py-1 shadow-button">Login with Google</div>
-
+        <Link href="/">
+          <div className="w-100 border-blue-button border-2 rounded py-1 shadow-button cursor-pointer">
+            Home
+          </div>
+        </Link>
       </div>
     </div>
   );
