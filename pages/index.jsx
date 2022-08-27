@@ -12,14 +12,14 @@ export default function Home() {
       <main className="bg-blue-main flex flex-col justify-center items-center h-screen px-10 text-white text-center">
         <h1 className="text-2xl ">Money Manager</h1>
         <div className="w-full flex flex-col gap-3 mt-10">
-          <Link href="/login">
+          <Link href="/signup">
             <div className="w-full bg-blue-button rounded py-1 shadow-button cursor-pointer">
-              Login
+              Sign Up
             </div>
           </Link>
           <Link href="/login">
             <div className="w-full bg-blue-button rounded py-1 shadow-button cursor-pointer">
-              Sign Up
+              Login
             </div>
           </Link>
         </div>
