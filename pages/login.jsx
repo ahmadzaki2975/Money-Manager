@@ -1,8 +1,23 @@
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc"
 import { googleSignIn } from "../firebase/firebase";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Login() {
+  const router = useRouter();
+  const [user, setUser] = useState({
+    uid:""
+  });
+
+  useEffect(() => {
+    const userdata = JSON.parse(localStorage.getItem("user"))
+    if(user.uid !== "") {
+      setUser(userdata);
+      router.push("/dashboard")
+    }
+  }, [user])
+
   return (
     <div className="h-screen bg-blue-main text-white px-10">
       <div className="h-[250px]"></div>
@@ -32,9 +47,13 @@ export default function Login() {
         </div>
         <div 
         onClick={
-          () => {googleSignIn()}
+          () => {
+            googleSignIn();
+          }
         }
-        className="w-100 bg-blue-button rounded py-1 shadow-button flex justify-center items-center gap-2"><FcGoogle/> Login with Google</div>
+        className="w-100 cursor-pointer bg-blue-button rounded py-1 shadow-button flex justify-center items-center gap-2">
+          <div className="aspect-square bg-white rounded-full"><FcGoogle/></div>
+          Login with Google</div>
         <Link href="/">
           <div className="w-100 border-blue-button border-2 rounded py-1 shadow-button cursor-pointer">
             Home

@@ -2,6 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc, getDocs, setDoc, getFirestore, collection } from "firebase/firestore";
+import { execOnce } from "next/dist/shared/lib/utils";
+import { useRouter } from "next/router";
 
 // TODO: Add SDKs for Firebase products that you want to use
 //? https://firebase.google.com/docs/web/setup#available-libraries
@@ -27,8 +29,13 @@ export const googleSignIn = () => {
   signInWithPopup(auth, provider)
   .then(response => {
     console.log(response);
-    const user = JSON.stringify(response.user)
-    localStorage.setItem("user", user)
+    const user = JSON.stringify(response.user);
+    localStorage.setItem("user", user);
   })
   .catch(err => console.error(err));
+}
+
+//? Log Out
+export const logout = () => {
+  localStorage.clear();
 }
