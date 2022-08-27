@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 
+
 export default function Home() {
   return (
     <div>
@@ -10,7 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="bg-blue-main flex flex-col justify-center items-center h-screen px-10 text-white text-center">
-        <h1 className="text-2xl ">Money Manager</h1>
+        <h1 className="text-2xl " data-aos="fade-up" data-aos-duration="700">Money Manager</h1>
         <div className="w-full flex flex-col gap-3 mt-10">
           <Link href="/signup">
             <div className="w-full bg-blue-button rounded py-1 shadow-button cursor-pointer">
