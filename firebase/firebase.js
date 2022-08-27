@@ -1,9 +1,12 @@
-// Import the functions you need from the SDKs you need
+//? Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { doc, getDocs, setDoc, getFirestore, collection } from "firebase/firestore";
 
-// Your web app's Firebase configuration
+// TODO: Add SDKs for Firebase products that you want to use
+//? https://firebase.google.com/docs/web/setup#available-libraries
+
+//? Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDIbZTBbgKAHhuXfyihmIFNr38Z-7irenI",
   authDomain: "money-manager-daa71.firebaseapp.com",
@@ -13,7 +16,19 @@ const firebaseConfig = {
   appId: "1:830494134542:web:851d89bc0d92b8945b875f"
 };
 
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+//? Initialize Firebase
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+export const db = getFirestore(app);
 
-export const db = firebaseApp.firestore();
+//? Google Sign In
+export const googleSignIn = () => {
+  signInWithPopup(auth, provider)
+  .then(response => {
+    console.log(response);
+    const user = JSON.stringify(response.user)
+    localStorage.setItem("user", user)
+  })
+  .catch(err => console.error(err));
+}

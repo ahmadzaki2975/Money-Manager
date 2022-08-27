@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc"
+import { googleSignIn } from "../firebase/firebase";
 
 export default function Login() {
   return (
@@ -29,7 +30,11 @@ export default function Login() {
           <span className="text-blue-button">or</span>
           <div className="h-[1px] bg-blue-button w-full"></div>
         </div>
-        <div className="w-100 bg-blue-button rounded py-1 shadow-button flex justify-center items-center gap-2"><FcGoogle/> Login with Google</div>
+        <div 
+        onClick={
+          () => {googleSignIn()}
+        }
+        className="w-100 bg-blue-button rounded py-1 shadow-button flex justify-center items-center gap-2"><FcGoogle/> Login with Google</div>
         <Link href="/">
           <div className="w-100 border-blue-button border-2 rounded py-1 shadow-button cursor-pointer">
             Home
