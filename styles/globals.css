@@ -19,7 +19,11 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
+.shadow-button {
+  box-shadow: 0 3px 5px rgb(43, 63, 108, 0.8);
+}
+
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -27,4 +31,4 @@ a {
     color: white;
     background: black;
   }
-}
+} */
