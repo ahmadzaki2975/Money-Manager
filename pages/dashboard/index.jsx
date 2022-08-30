@@ -1,22 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { logout } from "../firebase/firebase";
+import { logout } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
   // const user = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState({})
   const router = useRouter();
-
-  useEffect(() => {
-    if(!localStorage.getItem("user")) {
-      router.push('/');
-    }
-    console.log(typeof window);
-    const userdata = JSON.parse(localStorage.getItem("user"));
-    setUser(userdata);
-  }
-  ,[])
 
   return (
     <div className="flex flex-col">

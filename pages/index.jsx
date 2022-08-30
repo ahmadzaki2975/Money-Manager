@@ -3,15 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function Home() {
-  // const user = localStorage.getItem("user");
-  const user = false;
-  const router = useRouter();
-
-  if(user) {
-    alert("you are logged in");
-    router.push('/dashboard')
-  }
-
   return (
     <div className="w-full">
       <Head>

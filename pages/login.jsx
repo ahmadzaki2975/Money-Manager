@@ -6,17 +6,6 @@ import { useEffect, useState } from "react";
 
 export default function Login() {
   const router = useRouter();
-  const [user, setUser] = useState({
-    uid:""
-  });
-
-  useEffect(() => {
-    const userdata = JSON.parse(localStorage.getItem("user"))
-    if(user.uid !== "") {
-      setUser(userdata);
-      router.push("/dashboard")
-    }
-  }, [user])
 
   return (
     <div className="h-screen bg-blue-main text-white px-10">
@@ -49,6 +38,7 @@ export default function Login() {
         onClick={
           () => {
             googleSignIn();
+            router.replace('/dashboard');
           }
         }
         className="w-100 cursor-pointer bg-blue-button rounded py-1 shadow-button flex justify-center items-center gap-2">
