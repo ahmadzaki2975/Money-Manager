@@ -37,8 +37,8 @@ export default function Login() {
         <div 
         onClick={
           () => {
-            googleSignIn();
-            router.replace('/dashboard');
+            alert("Google Sign In is not yet implemented");
+            // googleSignIn();
           }
         }
         className="w-100 cursor-pointer bg-blue-button rounded py-1 shadow-button flex justify-center items-center gap-2">
