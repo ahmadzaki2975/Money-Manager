@@ -58,7 +58,7 @@ export default function Login() {
 
       <div className="btn-cont mt-12 text-center flex flex-col gap-5">
         <div
-          className="w-100 bg-blue-button rounded py-1 shadow-button cursor-pointer"
+          className="w-100 bg-blue-button rounded py-1 shadow-button cursor-pointer font-semibold"
           onClick={() => {
             login(email, password)
             .then((response) => {

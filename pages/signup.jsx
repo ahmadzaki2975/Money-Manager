@@ -82,7 +82,7 @@ export default function Signup() {
 
       <div className="btn-cont mt-8 text-center flex flex-col gap-5">
         <div
-          className="w-100 bg-blue-button rounded py-1 shadow-button"
+          className="w-100 bg-blue-button rounded py-1 shadow-button font-semibold"
           onClick={() => {
             if (email.length < 1) {
               alert("Please enter an email");
