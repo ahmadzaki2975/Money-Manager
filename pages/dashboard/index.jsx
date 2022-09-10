@@ -8,6 +8,15 @@ export default function Dashboard() {
   const [user, setUser] = useState({})
   const router = useRouter();
 
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user")));
+    } else {
+      alert("You need to be logged in to view this page");
+      router.replace("/login");
+    }
+  },[]);
+
   return (
     <div className="flex flex-col">
       Dashboard Page

@@ -39,3 +39,42 @@ export const googleSignIn = () => {
 export const logout = () => {
   localStorage.clear();
 }
+
+// check if email is already used
+export const checkEmail = async (email) => {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  const users = querySnapshot.docs.map(doc => doc.data());
+  const user = users.find(user => user.email === email);
+  if (user) {
+    return true;
+  } else {  
+    return false;
+  }
+}
+
+// register user to database return true if success
+export const registerUser = async (email, password, displayName) => {
+  const user = {
+    email : email,
+    password : password,
+    displayName : displayName
+  }
+  const docRef = await setDoc(doc(db, "users", email), user);
+}
+
+// login
+export const login = async (email, password) => {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  const users = querySnapshot.docs.map(doc => doc.data());
+  const user = users.find(user => user.email === email && user.password === password);
+  if (!user) {
+    throw new Error("Email or password is incorrect");
+  } else {
+    localStorage.setItem("user", JSON.stringify(
+      {
+        email: user.email,
+        displayName: user.displayName
+      }
+      ));
+  }
+}
