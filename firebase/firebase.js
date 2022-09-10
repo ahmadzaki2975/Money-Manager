@@ -36,9 +36,7 @@ export const googleSignIn = () => {
 }
 
 //? Log Out
-export const logout = () => {
-  localStorage.clear();
-}
+
 
 // check if email is already used
 export const checkEmail = async (email) => {

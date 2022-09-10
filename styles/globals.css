@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,12 +24,23 @@ a {
   box-shadow: 0 3px 5px rgb(43, 63, 108, 0.8);
 }
 
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-} */
+.sections::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  display: none;
+}
+
+.sections::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: rgba(205, 212, 238, 0.5);
+}
+
+.sections::-webkit-scrollbar-thumb {
+  background: #e0cbcb;
+  border-radius: 100vh;
+  border: 3px solid #f6f7ed;
+}
+
+.sections::-webkit-scrollbar-thumb:hover {
+  background: red;
+}

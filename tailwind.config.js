@@ -11,7 +11,13 @@ module.exports = {
           main : '#5B6AA0',
           button : '#7A83D2'
         },
+        'gray' : {
+          glass : "rgba(205, 212, 238, 0.5)"
+        }
       },
+      fontFamily: {
+        Montserrat : 'Montserrat'
+      }
     },
   },
   plugins: [],
