@@ -132,9 +132,9 @@ export default function Signup() {
           </div>
           Sign Up with Google
         </div>
-        <Link href="/">
+        <Link href="/login">
           <div className="w-100 border-blue-button border-2 rounded py-1 shadow-button cursor-pointer">
-            Home
+            Already have an account? Log in!
           </div>
         </Link>
       </div>
