@@ -88,8 +88,10 @@ export default function Signup() {
               alert("Please enter an email");
             } else if (displayName.length < 1) {
               alert("Please enter a display name");
-            } else if (password.length < 1) {
-              alert("Please enter a password");
+            } else if (displayName.length > 12) {
+              alert("Display name must be less than 12 characters");
+            } else if (password.length <= 8) {
+              alert("Password must be at least 8 characters");
             } else if (password !== confirmPassword) {
               alert("Your passwords don't match!");
             } else {
@@ -100,10 +102,9 @@ export default function Signup() {
                   registerUser(email, password, displayName)
                     .then((response) => {
                       alert("Account created successfully!");
-                      login(email, password)
-                      .then(response => {
+                      login(email, password).then((response) => {
                         router.replace("/dashboard");
-                      })
+                      });
                     })
                     .catch((error) => {
                       alert(error.message);

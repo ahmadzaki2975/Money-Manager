@@ -17,6 +17,9 @@ module.exports = {
       },
       fontFamily: {
         Montserrat : 'Montserrat'
+      },
+      screens: {
+        'xs': '320px',
       }
     },
   },
