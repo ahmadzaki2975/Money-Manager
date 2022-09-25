@@ -4,6 +4,7 @@ import { googleSignIn } from "../firebase/firebase";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { login } from "../firebase/firebase";
+import { Logo } from "../components/Logo";
 
 export default function Login() {
   const router = useRouter();
@@ -15,20 +16,22 @@ export default function Login() {
   useEffect(() => {
     window.addEventListener("storage", () => {
       if (localStorage.getItem("user")) {
-        setUser((localStorage.getItem("user")));
+        setUser(localStorage.getItem("user"));
         router.replace("/dashboard");
       }
       return () => {
-        window.removeEventListener('storage', checkUserData)
-      }
+        window.removeEventListener("storage", checkUserData);
+      };
     });
-  },[]);
+  }, []);
 
   return (
     <div className="h-screen bg-blue-main text-white px-10">
-      <div className="h-[250px]"></div>
+      <div className="h-[250px] aspect-square w-full flex justify-center pt-10 mb-5 scale-75" data-aos="fade-right">
+        <Logo />
+      </div>
       <form className="flex flex-col  text-black gap-3">
-        <div className="flex flex-col">
+        <div className="flex flex-col" data-aos="fade-right" data-aos-delay="200">
           <label htmlFor="email" className="text-white">
             Email
           </label>
@@ -41,7 +44,11 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="flex flex-col">
+        <div
+          className="flex flex-col"
+          data-aos="fade-right"
+          data-aos-delay="400"
+        >
           <label htmlFor="password" className="text-white">
             Password
           </label>
@@ -61,18 +68,24 @@ export default function Login() {
           className="w-100 bg-blue-button rounded py-1 shadow-button cursor-pointer font-semibold"
           onClick={() => {
             login(email, password)
-            .then((response) => {
-              alert("Login success");
-              router.push("/dashboard");
-            })
-            .catch((error) => {
-              alert(error.message);
-            });
+              .then((response) => {
+                alert("Login success");
+                router.push("/dashboard");
+              })
+              .catch((error) => {
+                alert(error.message);
+              });
           }}
+          data-aos="fade-right"
+          data-aos-delay="600"
         >
           Login
         </div>
-        <div className="flex items-center gap-5 filter brightness-125">
+        <div
+          className="flex items-center gap-5 filter brightness-125"
+          data-aos="fade-right"
+          data-aos-delay="800"
+        >
           <div className="h-[1px] bg-blue-button w-full"></div>
           <span className="text-blue-button">or</span>
           <div className="h-[1px] bg-blue-button w-full"></div>
@@ -83,6 +96,8 @@ export default function Login() {
             // googleSignIn();
           }}
           className="w-100 cursor-pointer bg-blue-button rounded py-1 shadow-button flex justify-center items-center gap-2"
+          data-aos="fade-right"
+          data-aos-delay="1000"
         >
           <div className="aspect-square bg-white rounded-full">
             <FcGoogle />
@@ -90,7 +105,11 @@ export default function Login() {
           Login with Google
         </div>
         <Link href="/signup">
-          <div className="w-100 border-blue-button border-2 rounded py-1 shadow-button cursor-pointer">
+          <div
+            className="w-100 border-blue-button border-2 rounded py-1 shadow-button cursor-pointer"
+            data-aos="fade-right"
+            data-aos-delay="1200"
+          >
             Don't have an account? Sign up!
           </div>
         </Link>

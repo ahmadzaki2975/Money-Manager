@@ -9,7 +9,7 @@ export default function Home() {
     setTimeout(() => {
       const opening = document.getElementById("opening");
       opening.classList.add("hidden");
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (
@@ -27,34 +27,32 @@ export default function Home() {
         <h1 className="text-2xl text-white mt-[20px]">Money Manager</h1>
       </div>
       <main className="bg-blue-main flex flex-col justify-center items-center h-screen px-10 text-white text-center">
-        <div
-          data-aos="fade-right"
-          data-aos-duration="700"
-          data-aos-delay="3000"
-        >
+        <div data-aos="fade-right" data-aos-delay="2000">
           <Logo />
         </div>
         <h1
           className="text-2xl mt-[20px]"
-          data-aos="fade-left"
-          data-aos-duration="700"
-          data-aos-delay="3000"
+          data-aos="fade-right"
+          data-aos-delay="2100"
         >
           Money Manager
         </h1>
-        <div
-          data-aos="fade-up"
-          data-aos-duration="700"
-          className="w-full flex flex-col gap-3 mt-10"
-          data-aos-delay="3000"
-        >
+        <div className="w-full flex flex-col gap-3 mt-10">
           <Link href="/signup">
-            <div className="w-full bg-blue-button rounded py-1 shadow-button cursor-pointer">
+            <div
+              className="w-full bg-blue-button rounded py-1 shadow-button cursor-pointer"
+              data-aos="fade-right"
+              data-aos-delay="2200"
+            >
               Sign Up
             </div>
           </Link>
           <Link href="/login">
-            <div className="w-full bg-blue-button rounded py-1 shadow-button cursor-pointer">
+            <div
+              className="w-full bg-blue-button rounded py-1 shadow-button cursor-pointer"
+              data-aos="fade-right"
+              data-aos-delay="2400"
+            >
               Login
             </div>
           </Link>

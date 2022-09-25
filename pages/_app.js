@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
       once: true,
       offset: 50,
       delay: 50,
+      duration: 400
     });
   });
   return (
@@ -19,7 +20,9 @@ function MyApp({ Component, pageProps }) {
         <title>Money Manager</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <main className='overflow-x-hidden'>
       <Component {...pageProps} />
+      </main>
     </>
   )
 }
