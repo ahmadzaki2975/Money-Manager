@@ -8,17 +8,17 @@ import 'swiper/css/scrollbar';
 
 export const Sections = () => {
   return(
-    <div className="w-full mt-16">
+    <div className="mt-12 w-[95%]">
       <h1 className="ml-[5%]">Sections</h1>
       <Swiper
-        modules={[freeMode]}
+        // modules={[freeMode]}
         spaceBetween={1}
         slidesPerView={1.8}
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => console.log(swiper)}
-        className="overflow-hidden flex items-center p-2"
+        className="overflow-hidden flex items-center p-2 w-[500px]"
       >
-        <SwiperSlide className="flex justify-center p-2">
+        <SwiperSlide className="flex justify-center py-2">
           <Section />
         </SwiperSlide>
         <SwiperSlide className="flex p-2 justify-center">

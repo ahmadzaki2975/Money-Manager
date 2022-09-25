@@ -26,7 +26,7 @@ export default function Dashboard() {
 
   return (
     <main className="bg-blue-main flex items-center justify-center">
-      <div className="flex flex-col w-full min-h-screen bg-blue-main items-center text-white font-Montserrat pb-10 sm:w-[500px]">
+      <div className="flex flex-col w-full min-h-screen bg-blue-main items-center text-white font-Montserrat pb-10 sm:w-[500px] outline outline-white">
         <div className="flex items-center justify-between w-full px-[5%] mt-10 flex-col xs:flex-row">
           <div className="flex flex-row items-center gap-4">
             <div className="w-[80px] aspect-square rounded-full bg-white"></div>
@@ -57,7 +57,10 @@ export default function Dashboard() {
         <div className="w-full h-[1px] bg-white mt-[35px] mb-[40px]"></div>
 
         <MoneyDisplay />
+        
+        <div className="w-full h-min p-0 m-0">
         <Sections />
+        </div>
       </div>
     </main>
   );
