@@ -76,3 +76,16 @@ export const login = async (email, password) => {
       ));
   }
 }
+
+export const fetchUserMoney = async () => {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  const email = JSON.parse(localStorage.getItem("user")).email;
+  const users = querySnapshot.docs.map(doc => doc.data());
+  const user = users.find(user => user.email === email);
+  return user.money;
+}
+
+export const setUserMoney = async (money) => {
+  const email = JSON.parse(localStorage.getItem("user")).email;
+  const docRef = await setDoc(doc(db, "users", email), {money: money});
+}

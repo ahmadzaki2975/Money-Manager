@@ -8,7 +8,7 @@ import 'swiper/css/scrollbar';
 
 export const Sections = () => {
   return(
-    <div className="mt-12 w-[95%]">
+    <div className="mt-12 w-[95%] mx-[5%] overflow-x-hidden">
       <h1 className="ml-[5%]">Sections</h1>
       <Swiper
         // modules={[freeMode]}
