@@ -14,8 +14,7 @@ export const Sections = () => {
         // modules={[freeMode]}
         spaceBetween={1}
         slidesPerView={1.8}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSwiper={(swiper) => {}}
         className="overflow-hidden flex items-center p-2 w-[500px]"
       >
         <SwiperSlide className="flex justify-center py-2">

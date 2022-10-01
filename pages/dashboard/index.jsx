@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { DashboardHeader } from "../../components/DashboardHeader";
 import { MoneyDisplay } from "../../components/MoneyDisplay";
 import { Sections } from "../../components/Sections";
+import UserContext from "../../utils/context/userContext";
 
 export default function Dashboard() {
-  const [user, setUser] = useState({});
+  const {user, setUser} = useContext(UserContext);
   const router = useRouter();
 
+  //? Auth Protection
   useEffect(() => {
     if (localStorage.getItem("user")) {
       setUser(JSON.parse(localStorage.getItem("user")));

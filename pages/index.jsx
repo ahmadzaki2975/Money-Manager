@@ -1,15 +1,26 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { Logo } from "../components/Logo";
+import UserContext from "../utils/context/userContext";
 
 export default function Home() {
+  const {user, setUser} = useContext(UserContext);
+  const router = useRouter();
+
   useEffect(() => {
-    setTimeout(() => {
-      const opening = document.getElementById("opening");
-      opening.classList.add("hidden");
-    }, 2000);
+    const storedUser = localStorage.getItem("user");
+    if (storedUser !== null) {
+      setUser(JSON.parse(storedUser));
+      router.replace("/dashboard");
+    } else {
+      setTimeout(() => {
+        const opening = document.getElementById("opening");
+        opening.classList.add("hidden");
+      }, 2000);
+    }
+
   }, []);
 
   return (

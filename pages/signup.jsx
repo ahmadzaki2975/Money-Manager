@@ -93,7 +93,7 @@ export default function Signup() {
               alert("Please enter a display name");
             } else if (displayName.length > 12) {
               alert("Display name must be less than 12 characters");
-            } else if (password.length <= 8) {
+            } else if (password.length < 7) {
               alert("Password must be at least 8 characters");
             } else if (password !== confirmPassword) {
               alert("Your passwords don't match!");

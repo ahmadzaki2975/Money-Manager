@@ -55,7 +55,9 @@ export const registerUser = async (email, password, displayName) => {
   const user = {
     email : email,
     password : password,
-    displayName : displayName
+    displayName : displayName,
+    money: 0,
+    spentMoney: 0,
   }
   const docRef = await setDoc(doc(db, "users", email), user);
 }
@@ -71,7 +73,9 @@ export const login = async (email, password) => {
     localStorage.setItem("user", JSON.stringify(
       {
         email: user.email,
-        displayName: user.displayName
+        displayName: user.displayName,
+        money: user.money? user.money : 0,
+        spentMoney : user.spentMoney? user.spentMoney : 0
       }
       ));
   }
@@ -82,7 +86,7 @@ export const fetchUserMoney = async () => {
   const email = JSON.parse(localStorage.getItem("user")).email;
   const users = querySnapshot.docs.map(doc => doc.data());
   const user = users.find(user => user.email === email);
-  return user.money;
+  return {money: user.money, spentMoney: user.spentMoney};
 }
 
 export const setUserMoney = async (money) => {
