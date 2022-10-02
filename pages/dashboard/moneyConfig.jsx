@@ -2,18 +2,40 @@ import { DashboardHeader } from "../../components/DashboardHeader";
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import UserContext from "../../utils/context/userContext";
+import { setUserMoney } from "../../firebase/firebase";
 
 export default function moneyConfig() {
   const { user, setUser } = useContext(UserContext);
   const router = useRouter();
   const [money, setMoney] = useState(0);
-  const [spentMoney, setSpentMoney] = useState(0);
+  const [moneySpent, setMoneySpent] = useState(0);
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    setUserMoney(user, money, moneySpent)
+    .then(response => {
+      alert("Money updated!");
+      setUser({
+        email : user.email,
+        displayName : user.displayName,
+        money : money,
+        spentMoney : moneySpent
+      })
+      localStorage.setItem("user", JSON.stringify({
+        email : user.email,
+        displayName : user.displayName,
+        money : money,
+        spentMoney : moneySpent
+      }))
+    })
+
+  }
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
       setUser(JSON.parse(localStorage.getItem("user")));
       setMoney(JSON.parse(localStorage.getItem("user")).money);
-      setSpentMoney(JSON.parse(localStorage.getItem("user")).spentMoney);
+      setMoneySpent(JSON.parse(localStorage.getItem("user")).spentMoney);
     } else {
       alert("You need to be logged in to view this page");
       router.replace("/login");
@@ -27,7 +49,7 @@ export default function moneyConfig() {
         <div className="w-full h-[1px] bg-white mt-[35px] mb-[40px]"></div>
 
         <h1 className="text-xl mb-5">Configure Money</h1>
-        <form className="flex flex-col w-full items-center">
+        <form className="flex flex-col w-full items-center" onSubmit={(e) => {onSubmitHandler(e)}}>
           <label className="text-lg">Money Available</label>
           <div className="w-full flex gap-3 items-center py-1 px-[10%]">
             <span>Rp</span>
@@ -37,7 +59,7 @@ export default function moneyConfig() {
               placeholder="Enter Amount"
               value={money}
               onChange={(e) => {
-                setMoney(e.target.value);
+                setMoney(parseInt(e.target.value));
               }}
             />
           </div>
@@ -48,9 +70,9 @@ export default function moneyConfig() {
               className="bg-blue-main w-full border border-white rounded-md p-[10px] outline-none"
               type="number"
               placeholder="Enter Amount"
-              value={spentMoney}
+              value={moneySpent}
               onChange={(e) => {
-                setMoney(e.target.value);
+                setMoneySpent(parseInt(e.target.value));
               }}
             />
           </div>

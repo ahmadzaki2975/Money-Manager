@@ -1,22 +1,27 @@
 import { FaSlidersH } from "react-icons/fa";
 import { fetchUserMoney } from "../firebase/firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Link from "next/link";
+import UserContext from "../utils/context/userContext";
+
 
 export const MoneyDisplay = (props) => {
+  const { user, setUser } = useContext(UserContext);
   const [money, setMoney] = useState(null);
   const [moneySpent, setMoneySpent] = useState(null);
 
   useEffect(() => {
-    fetchUserMoney(props.user)
-      .then((response) => {
+    if(user.email != null ) {
+      fetchUserMoney(user.email)
+      .then(response => {
         setMoney(response.money);
-        setMoneySpent(response.moneySpent? response.moneySpent : 0);
+        setMoneySpent(response.spentMoney);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
-      });
-  }, []);
+      })
+    }
+  }, [user]);
 
   return (
     <div className="w-full">
