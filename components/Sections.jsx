@@ -18,10 +18,10 @@ export const Sections = () => {
         className="overflow-hidden flex items-center p-2 w-[500px]"
       >
         <SwiperSlide className="flex justify-center py-2">
-          <Section />
+          <Section title="Statistics" />
         </SwiperSlide>
         <SwiperSlide className="flex p-2 justify-center">
-          <Section />
+          <Section title="Log" />
         </SwiperSlide>
       </Swiper >
     </div>
