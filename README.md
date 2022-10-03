@@ -1,6 +1,6 @@
 # Money-Manager [Work In Progress]
 
-[desc]
+A website to help manage your spending.
 
 ## Contributors
 
