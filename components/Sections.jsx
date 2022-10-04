@@ -17,11 +17,11 @@ export const Sections = () => {
         onSwiper={(swiper) => {}}
         className="overflow-hidden flex items-center p-2 w-[500px]"
       >
-        <SwiperSlide className="flex justify-center py-2">
-          <Section title="Statistics" />
+        <SwiperSlide className="flex justify-center py-2 cursor-pointer">
+          <Section title="Log" link="/dashboard/log"/>
         </SwiperSlide>
-        <SwiperSlide className="flex p-2 justify-center">
-          <Section title="Log" />
+        <SwiperSlide className="flex p-2 justify-center cursor-pointer">
+          <Section title="Statistics" link="/dashboard/statistics" />
         </SwiperSlide>
       </Swiper >
     </div>
