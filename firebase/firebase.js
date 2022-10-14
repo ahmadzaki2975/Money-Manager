@@ -75,7 +75,8 @@ export const login = async (email, password) => {
         email: user.email,
         displayName: user.displayName,
         money: user.money? user.money : 0,
-        spentMoney : user.spentMoney? user.spentMoney : 0
+        spentMoney : user.spentMoney? user.spentMoney : 0,
+        logs: user.logs? user.logs : [],
       }
       ));
   }
@@ -92,4 +93,9 @@ export const fetchUserMoney = async (email) => {
 export const setUserMoney = async (user, money, spentMoney) => {
   const email = user.email
   const docRef = await setDoc(doc(db, "users", email), {money: money, spentMoney: spentMoney}, {merge: true});
+}
+
+export const addLog = async (user, log) => {
+  const email = user.email
+  const docRef = await setDoc(doc(db, "users", email), {log: log}, {merge: true});
 }

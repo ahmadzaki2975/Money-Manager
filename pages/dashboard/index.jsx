@@ -14,6 +14,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (localStorage.getItem("user")) {
       setUser(JSON.parse(localStorage.getItem("user")));
+      console.log(user);
     } else {
       alert("You need to be logged in to view this page");
       router.replace("/login");
