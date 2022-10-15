@@ -3,28 +3,35 @@ import { useRouter } from "next/router";
 import UserContext from "../../utils/context/userContext";
 import { DashboardHeader } from "../../components/DashboardHeader";
 import Link from "next/link";
+import { getLogs } from "../../firebase/firebase";
+import { FaChessKing } from "react-icons/fa";
 
 export default function Logs() {
   const { user, setUser } = useContext(UserContext);
   const router = useRouter();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [logs, setLogs] = useState([]);
-  const [logTitle, setLogTitle] = useState("");
+  const [logs, setLogs] = useState(null);
+  const [logTitle, setLogTitle] = useState([]);
   const [logAmount, setLogAmount] = useState(0);
   const [logType, setLogType] = useState("expense");
   const [logDate, setLogDate] = useState("");
-  
 
   //? Auth Protection
   useEffect(() => {
     if (localStorage.getItem("user")) {
       setUser(JSON.parse(localStorage.getItem("user")));
+      console.log(user);
+      getLogs(user.email).then((res) => {
+        if (logs == null) {
+          setLogs(res);
+        }
+      });
     } else {
       alert("You need to be logged in to view this page");
       router.replace("/login");
     }
-  }, []);
+  }, [logs]);
 
   //? Toggle Modal
   function toggleModal() {
@@ -104,7 +111,24 @@ export default function Logs() {
           ""
         )}
 
-        <p>Coming soon...</p>
+        <div>
+          {logs != null
+            ? logs.map((log) => {
+                return (
+                  <div className="flex justify-between items-center w-max mt-3 gap-2">
+                    <div className="flex gap-3 items-center">
+                      <h1 className="text-sm">{log.title}</h1>
+                      <h1 className="text-sm">{log.type}</h1>
+                      <h1 className="text-sm">{log.date}</h1>
+                      <h1 className="text-sm">{log.isSpending? <span className="text-red-500">-Rp{log.amount}</span> : <span className="text-green-500">+Rp{log.amount}</span>}</h1>
+                    </div>
+                  </div>
+                );
+              })
+            : ""}
+        </div>
+
+        {/* New Button */}
         <div
           className="bg-blue-button fixed bottom-0 right-0 w-[60px] rounded-full cursor-pointer aspect-square m-5 flex items-center justify-center text-4xl"
           onClick={() => toggleModal()}

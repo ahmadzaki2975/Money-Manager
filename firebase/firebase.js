@@ -95,6 +95,13 @@ export const setUserMoney = async (user, money, spentMoney) => {
   const docRef = await setDoc(doc(db, "users", email), {money: money, spentMoney: spentMoney}, {merge: true});
 }
 
+export const getLogs = async (email) => {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  const users = querySnapshot.docs.map(doc => doc.data());
+  const user = users.find(user => user.email === email);
+  return user.logs;
+}
+
 export const addLog = async (user, log) => {
   const email = user.email
   const docRef = await setDoc(doc(db, "users", email), {log: log}, {merge: true});
