@@ -102,7 +102,15 @@ export const getLogs = async (email) => {
   return user.logs;
 }
 
-export const addLog = async (user, log) => {
+export const addLog = async (user, title, amount, type, isSpending) => {
   const email = user.email
-  const docRef = await setDoc(doc(db, "users", email), {log: log}, {merge: true});
+  const logToBeAdded = {
+    title: title,
+    amount: amount,
+    type: type,
+    isSpending: isSpending,
+    id: Date.now(),
+    date: Date.now()
+  }
+  const docRef = await setDoc(doc(db, "users", email), {logs: [...user.logs, logToBeAdded]}, {merge: true});
 }
