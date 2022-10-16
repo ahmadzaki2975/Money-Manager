@@ -110,7 +110,7 @@ export default function Login() {
             data-aos="fade-right"
             data-aos-delay="1200"
           >
-            Don't have an account? Sign up!
+            Don&apos;t have an account? Sign up!
           </div>
         </Link>
       </div>

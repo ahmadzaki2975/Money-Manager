@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import UserContext from "../../utils/context/userContext";
 import { setUserMoney } from "../../firebase/firebase";
 
-export default function moneyConfig() {
+export default function MoneyConfig() {
   const { user, setUser } = useContext(UserContext);
   const router = useRouter();
   const [money, setMoney] = useState(0);
