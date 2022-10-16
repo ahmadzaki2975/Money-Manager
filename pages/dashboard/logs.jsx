@@ -5,6 +5,7 @@ import { DashboardHeader } from "../../components/DashboardHeader";
 import Link from "next/link";
 import { getLogs } from "../../firebase/firebase";
 import { FaChessKing } from "react-icons/fa";
+import dateConvert from "../../utils/functions/dateConvert";
 
 export default function Logs() {
   const { user, setUser } = useContext(UserContext);
@@ -20,18 +21,19 @@ export default function Logs() {
   //? Auth Protection
   useEffect(() => {
     if (localStorage.getItem("user")) {
-      setUser(JSON.parse(localStorage.getItem("user")));
-      console.log(user);
-      getLogs(user.email).then((res) => {
-        if (logs == null) {
+      if(user.email == null) {
+        setUser(JSON.parse(localStorage.getItem("user")));
+      }
+      if(user.email !== null) {
+        getLogs(user.email).then((res) => {
           setLogs(res);
-        }
-      });
+        });
+      }
     } else {
       alert("You need to be logged in to view this page");
       router.replace("/login");
     }
-  }, [logs]);
+  }, [user]);
 
   //? Toggle Modal
   function toggleModal() {
@@ -111,16 +113,20 @@ export default function Logs() {
           ""
         )}
 
-        <div>
+        <div className="w-[80%]">
           {logs != null
             ? logs.map((log) => {
                 return (
-                  <div className="flex justify-between items-center w-max mt-3 gap-2">
-                    <div className="flex gap-3 items-center">
-                      <h1 className="text-sm">{log.title}</h1>
+                  <div className="flex justify-between items-center w-full mt-3 gap-2 py-1 outline outline-white" key={log.id}>
+                    <div className="flex flex-col justify-center w-[30%] pl-2">
+                      <h1 className="text-lg">{log.title}</h1>
                       <h1 className="text-sm">{log.type}</h1>
-                      <h1 className="text-sm">{log.date}</h1>
-                      <h1 className="text-sm">{log.isSpending? <span className="text-red-500">-Rp{log.amount}</span> : <span className="text-green-500">+Rp{log.amount}</span>}</h1>
+                    </div>
+                    {/* <div className="border border-white">
+                      <h1 className="text-sm">{dateConvert(log.date)}</h1>
+                    </div> */}
+                    <div className="pr-2">
+                    <h1 className="text-lg font-semibold">{log.isSpending? <span className="text-red-500">-Rp {log.amount}</span> : <span className="text-green-500">+Rp {log.amount}</span>}</h1>
                     </div>
                   </div>
                 );
