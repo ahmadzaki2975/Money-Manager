@@ -3,8 +3,7 @@ import { useRouter } from "next/router";
 import UserContext from "../../utils/context/userContext";
 import { DashboardHeader } from "../../components/DashboardHeader";
 import Link from "next/link";
-import { getLogs } from "../../firebase/firebase";
-import { FaChessKing } from "react-icons/fa";
+import { addLog, getLogs } from "../../firebase/firebase";
 import dateConvert from "../../utils/functions/dateConvert";
 
 export default function Logs() {
@@ -13,18 +12,18 @@ export default function Logs() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [logs, setLogs] = useState(null);
-  const [logTitle, setLogTitle] = useState([]);
+  const [logTitle, setLogTitle] = useState("");
   const [logAmount, setLogAmount] = useState(0);
-  const [logType, setLogType] = useState("expense");
-  const [logDate, setLogDate] = useState("");
+  const [logAmountPosNeg, setLogAmountPosNeg] = useState(-1);
+  const [logType, setLogType] = useState("Food");
 
   //? Auth Protection
   useEffect(() => {
     if (localStorage.getItem("user")) {
-      if(user.email == null) {
+      if (user.email == null) {
         setUser(JSON.parse(localStorage.getItem("user")));
       }
-      if(user.email !== null) {
+      if (user.email !== null) {
         getLogs(user.email).then((res) => {
           setLogs(res);
         });
@@ -33,11 +32,41 @@ export default function Logs() {
       alert("You need to be logged in to view this page");
       router.replace("/login");
     }
-  }, [user]);
+  }, [user,logs]);
 
   //? Toggle Modal
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
+  }
+
+  //? Add Log
+  function addLogHandler(e) {
+    e.preventDefault();
+    if (logTitle.length > 0 && logAmount > 0) {
+      let newLog = {
+        title: logTitle,
+        amount: logAmount * logAmountPosNeg,
+        type: logType,
+        id: Date.now(),
+      };
+      console.log(newLog);
+      let isSpending;
+      if (logAmountPosNeg == -1) {
+        isSpending = true;
+      } else {
+        isSpending = false;
+      }
+      addLog(user.email, logTitle, logAmount, logType, isSpending).then(() => {
+        setLogTitle("");
+        setLogAmount(0);
+        setLogAmountPosNeg(-1);
+        setLogType("Food");
+        toggleModal();
+      });
+      setLogs([...logs, newLog]);
+    } else {
+      alert("Please fill in all the fields");
+    }
   }
 
   return (
@@ -59,7 +88,12 @@ export default function Logs() {
               >
                 X
               </div>
-              <form className="flex flex-col items-center justify-center">
+              <form
+                className="flex flex-col items-center justify-center"
+                onSubmit={(e) => {
+                  addLogHandler(e);
+                }}
+              >
                 <h1 className="text-xl">Add a new log</h1>
                 <label htmlFor="log-title" className="mt-3">
                   Title
@@ -69,21 +103,34 @@ export default function Logs() {
                   name="log-title"
                   id="log-title"
                   className="w-[80%] rounded outline-none p-[2px] text-slate-900"
+                  value={logTitle}
+                  onChange={(e) => {
+                    setLogTitle(e.target.value);
+                  }}
                 />
 
                 <label htmlFor="log-amount" className="mt-3">
                   Amount
                 </label>
                 <div className="w-[80%] flex gap-2">
-                  <select className="rounded outline-none p-[4px] text-slate-900">
-                    <option value="spend">-</option>
-                    <option value="gain">+</option>
+                  <select
+                    className="rounded outline-none p-[4px] text-slate-900"
+                    onChange={(e) => {
+                      setLogAmountPosNeg(e.target.value);
+                    }}
+                  >
+                    <option value={-1}>-</option>
+                    <option value={1}>+</option>
                   </select>
                   <input
                     type="number"
                     name="log-amount"
                     id="log-amount"
                     className="w-full rounded outline-none p-[2px] text-slate-900"
+                    value={logAmount}
+                    onChange={(e) => {
+                      setLogAmount(e.target.value);
+                    }}
                   />
                 </div>
 
@@ -94,11 +141,23 @@ export default function Logs() {
                   name="log-type"
                   id="log-type"
                   className="w-[80%] rounded outline-none p-[2px] text-slate-900"
+                  onChange={(e) => {
+                    setLogType(e.target.value);
+                  }}
                 >
-                  <option value="Food">Food</option>
-                  <option value="Entertainment">Entertainment</option>
-                  <option value="Transportation">Transportation</option>
-                  <option value="Other">Other</option>
+                  {logAmountPosNeg == -1 ? (
+                    <>
+                      <option value="Food">Food</option>
+                      <option value="Entertainment">Entertainment</option>
+                      <option value="Transportation">Transportation</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value="Salary">Salary</option>
+                      <option value="Bonus">Bonus</option>
+                      <option value="Investment">Investment</option>
+                    </>
+                  )}
                 </select>
                 <button
                   type="submit"
@@ -117,7 +176,10 @@ export default function Logs() {
           {logs != null
             ? logs.map((log) => {
                 return (
-                  <div className="flex justify-between items-center w-full mt-3 gap-2 py-1 outline outline-white" key={log.id}>
+                  <div
+                    className="flex justify-between items-center w-full mt-3 gap-2 py-1 outline bg-gray-glass outline-white rounded"
+                    key={log.id}
+                  >
                     <div className="flex flex-col justify-center w-[30%] pl-2">
                       <h1 className="text-lg">{log.title}</h1>
                       <h1 className="text-sm">{log.type}</h1>
@@ -126,7 +188,15 @@ export default function Logs() {
                       <h1 className="text-sm">{dateConvert(log.date)}</h1>
                     </div> */}
                     <div className="pr-2">
-                    <h1 className="text-lg font-semibold">{log.isSpending? <span className="text-red-500">-Rp {log.amount}</span> : <span className="text-green-500">+Rp {log.amount}</span>}</h1>
+                      <h1 className="text-lg font-semibold">
+                        {log.isSpending ? (
+                          <span className="text-red-500">-Rp {log.amount}</span>
+                        ) : (
+                          <span className="text-green-700">
+                            +Rp {log.amount}
+                          </span>
+                        )}
+                      </h1>
                     </div>
                   </div>
                 );

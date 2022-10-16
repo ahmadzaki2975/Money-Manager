@@ -102,15 +102,19 @@ export const getLogs = async (email) => {
   return user.logs;
 }
 
-export const addLog = async (user, title, amount, type, isSpending) => {
-  const email = user.email
+export const addLog = async (email, title, amount, type, isSpending) => {
+  const logs = await getLogs(email);
+  console.log(logs)
   const logToBeAdded = {
     title: title,
     amount: amount,
     type: type,
     isSpending: isSpending,
-    id: Date.now(),
-    date: Date.now()
+    id: Date.now()
   }
-  const docRef = await setDoc(doc(db, "users", email), {logs: [...user.logs, logToBeAdded]}, {merge: true});
+  if(logs == undefined){
+    setDoc(doc(db, "users", email), {logs: [logToBeAdded]}, {merge: true});
+  } else {
+    setDoc(doc(db, "users", email), {logs: [...logs, logToBeAdded]}, {merge: true});
+  }
 }
