@@ -105,6 +105,7 @@ export const getLogs = async (email) => {
 export const addLog = async (email, title, amount, type, isSpending) => {
   const logs = await getLogs(email);
   console.log(logs)
+  const user = await fetchUserMoney(email);
   const logToBeAdded = {
     title: title,
     amount: amount,
@@ -112,9 +113,10 @@ export const addLog = async (email, title, amount, type, isSpending) => {
     isSpending: isSpending,
     id: Date.now()
   }
+  console.log(logToBeAdded)
   if(logs == undefined){
-    setDoc(doc(db, "users", email), {logs: [logToBeAdded]}, {merge: true});
+    setDoc(doc(db, "users", email), {logs: [logToBeAdded], money: user.money+parseInt(amount)}, {merge: true});
   } else {
-    setDoc(doc(db, "users", email), {logs: [...logs, logToBeAdded]}, {merge: true});
+    setDoc(doc(db, "users", email), {logs: [...logs, logToBeAdded], money: user.money+parseInt(amount)}, {merge: true});
   }
 }

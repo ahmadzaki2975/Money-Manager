@@ -56,7 +56,7 @@ export default function Logs() {
       } else {
         isSpending = false;
       }
-      addLog(user.email, logTitle, logAmount, logType, isSpending).then(() => {
+      addLog(user.email, logTitle, newLog.amount, logType, isSpending).then(() => {
         setLogTitle("");
         setLogAmount(0);
         setLogAmountPosNeg(-1);
