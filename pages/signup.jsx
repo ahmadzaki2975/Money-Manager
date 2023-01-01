@@ -138,9 +138,9 @@ export default function Signup() {
           Sign Up with Google
         </div>
         <Link href="/login">
-          <div className="w-100 border-blue-button border-2 rounded py-1 shadow-button cursor-pointer" data-aos="fade-right" data-aos-delay="1400" data-aos-offset="-1000">
+          <a className="w-100 rounded py-1  cursor-pointer text-[#789FFF] hover:underline" data-aos="fade-right" data-aos-delay="1400" data-aos-offset="-1000">
             Already have an account? Log in!
-          </div>
+          </a>
         </Link>
       </div>
     </div>

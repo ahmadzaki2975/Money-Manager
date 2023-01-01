@@ -35,14 +35,14 @@ export default function Home() {
         className="bg-blue-main w-full h-screen absolute top-0 left-0 flex flex-col justify-center items-center z-10"
       >
         <Logo />
-        <h1 className="text-2xl text-white mt-[20px]">Money Manager</h1>
+        <h1 className="text-2xl text-center text-[#789FFF] mt-[20px]">We are managing <br /> your money</h1>
       </div>
       <main className="bg-blue-main flex flex-col justify-center items-center h-screen px-10 text-white text-center">
         <div data-aos="fade-right" data-aos-delay="2000">
           <Logo />
         </div>
         <h1
-          className="text-2xl mt-[20px]"
+          className="text-2xl text-[#789FFF] mt-[20px] font-semibold"
           data-aos="fade-right"
           data-aos-delay="2100"
         >
